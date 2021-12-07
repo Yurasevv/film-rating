@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public class User implements Identifiable, Serializable {
 
+    // private static final long serialVersionUID = ...;
+
     private Integer id;
     private String login;
     private String password;

@@ -1,4 +1,6 @@
 package com.epam.rating.dao.api;
 
-public interface FilmDao {
+import com.epam.rating.entity.Film;
+
+public interface FilmDao extends Dao<Film>{
 }
