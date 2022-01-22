@@ -1,5 +1,6 @@
 package com.epam.rating;
 
+import com.epam.rating.command.CommandResult;
 import com.epam.rating.dao.factory.DaoFactory;
 import com.epam.rating.dao.factory.impl.DaoFactoryImpl;
 import org.apache.logging.log4j.LogManager;
@@ -28,10 +29,19 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
 
+
     }
 
     private void processCommandResult(CommandResult commandResult, HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException{
-        
+        boolean redirect = commandResult.isRedirect();
+        String page = commandResult.getPage();
+        if(redirect){
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + page);
+        } else{
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        }
     }
 }
