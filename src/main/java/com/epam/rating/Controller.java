@@ -1,8 +1,13 @@
 package com.epam.rating;
 
+import com.epam.rating.command.Command;
 import com.epam.rating.command.CommandResult;
+import com.epam.rating.command.factory.CommandFactory;
+import com.epam.rating.command.factory.impl.CommandFactoryImpl;
 import com.epam.rating.dao.factory.DaoFactory;
 import com.epam.rating.dao.factory.impl.DaoFactoryImpl;
+import com.epam.rating.pool.ConnectionPool;
+import com.epam.rating.pool.ProxyConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +33,19 @@ public class Controller extends HttpServlet {
     }
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
+        String commandValue = request.getParameter(COMMAND_PARAMETER);
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
 
+        try(ProxyConnection connection = connectionPool.getConnection()){
+            DaoFactory daoFactory = new DaoFactoryImpl(connection);
+            CommandFactory commandFactory = new CommandFactoryImpl(daoFactory);
+            Command command = commandFactory.create(commandValue);
+            CommandResult commandResult = command.execute(request, response);
+            processCommandResult(commandResult, request, response);
+        } catch(Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            throw new ServletException(ex.getMessage(), ex);
+        }
 
     }
 

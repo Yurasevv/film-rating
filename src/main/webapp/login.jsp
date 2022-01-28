@@ -4,6 +4,7 @@
     <title>Film rating</title>
 </head>
 <body>
-<h2>Hello World!</h2>
+    <h2>Login page</h2>
+    <a href="WEB-INF/views/home.jsp">Home</a>
 </body>
 </html>
