@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
     <a href="../login.jsp">login</a>

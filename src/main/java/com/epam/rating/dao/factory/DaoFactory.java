@@ -5,5 +5,4 @@ import com.epam.rating.dao.api.UserDao;
 
 public interface DaoFactory {
     UserDao createUserDao();
-    FilmDao createFilmDao();
 }

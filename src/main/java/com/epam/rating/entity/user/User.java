@@ -19,7 +19,7 @@ public class User implements Identifiable, Serializable {
     private boolean isBanned;
     private UserRole role;
 
-    public User(String login, String password, String name, String surname, String nickname, String phoneNumber, String email, boolean isBanned, UserRole role) {
+    public User(String login, String password, String name, String surname, String nickname, UserRole role) {
         this.login = login;
         this.password = password;
         this.name = name;
